@@ -42,12 +42,16 @@ BOT_CLIENT.on('messageCreate', async (message: Message) => {
     const botMention = `<@${BOT_CLIENT.user.id}>`;
     const cleanMessage = message.content.replace(botMention, '').trim();
 
+    if ('sendTyping' in message.channel && typeof message.channel.sendTyping === 'function') {
+      await message.channel.sendTyping();
+    }
+
     const conversation = cleanedContext.map(m => `${m.author.username}: ${m.content}`).join('\n');
-  
     const summary = await summarize(conversation);
     const summaryText = summary.text as string;
-    const response = await chat(cleanMessage, summaryText);
+    console.log(summaryText)
 
+    const response = await chat(cleanMessage, summaryText);
     await message.reply(response.text as string);
   }
 });

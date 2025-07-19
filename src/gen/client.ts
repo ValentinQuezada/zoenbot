@@ -24,7 +24,8 @@ export async function summarize(conversation: string) {
     model: modelName,
     config: {
       systemInstruction: SYSTEM_INSTRUCTIONS.SUMMARIZE,
-      temperature: 0.1,
+      temperature: 0.2,
+      maxOutputTokens: 1500,
     },
     contents: conversation,
   });
