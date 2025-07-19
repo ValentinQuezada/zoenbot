@@ -2,9 +2,14 @@
   "name": "bot-discord-ec2",
   "version": "1.0.0",
   "description": "A bot for web scrapping and send notification on discord",
-  "main": "index.js",
+  "main": "src/index.ts",
   "scripts": {
+<<<<<<< HEAD
   "start": "node src/index.js"
+=======
+    "start": "ts-node src/index.ts",
+    "build": "tsc"
+>>>>>>> 06a53453aac14b41927a61e9dbef2919f105535c
   },
   "keywords": [],
   "author": "",
@@ -16,7 +21,10 @@
     "pm2": "^6.0.8"
   },
   "devDependencies": {
-    "standard": "16.0.4"
+    "@types/node": "^20.19.9",
+    "standard": "16.0.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
   },
   "eslintConfig": {
     "extends": "standard"
