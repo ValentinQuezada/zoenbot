@@ -20,6 +20,9 @@ jobs:
         run: |
           echo "TOKEN_DISCORD=${{ secrets.TOKEN_DISCORD }}" >> .env
 
+      - name: Initialize bot
+        run: make initialize
+
       - name: Run bot with Makefile
         run: make run
 
