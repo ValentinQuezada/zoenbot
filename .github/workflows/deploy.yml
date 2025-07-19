@@ -26,6 +26,5 @@ jobs:
       - name: Deploy with PM2
         run: |
           pm2 stop all || true
-          make run
-          pm2 start src/index.ts --name bot --interpreter ts-node
+          pm2 start make --name bot -- run
           pm2 save
