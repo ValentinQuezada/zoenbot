@@ -1,7 +1,8 @@
-import { Schema, Document, Types } from "mongoose";
-import { MatchDocument } from "./match"; // Importa tu MatchDocument
-import { UserStatsDocument } from "./user"; // Importa tu UserDocument/StatsDocument
+import { Schema, Document, Types, model } from "mongoose";
+import { MatchDocument } from "./match";
+import { UserStatsDocument } from "./user";
 
+// Equipo
 export interface Team {
   name: string;
   alias: string;
@@ -15,20 +16,21 @@ const TeamSchema = new Schema<Team>({
 export interface PollaDocument extends Document {
   name: string;
   teams: Team[];
-  matches: Types.DocumentArray<MatchDocument>; // o Types.ObjectId[] si usas ref
-  users: Types.DocumentArray<UserStatsDocument>;
+  matches: Types.ObjectId[]; // Referencias a Match
+  users: Types.ObjectId[];   // Referencias a User
   createdAt: Date;
   status: 'open' | 'closed' | 'in_progress';
 }
 
-export const PollaSchema = new Schema<PollaDocument>({
-  name:     { type: String, required: true },
-  teams:    { type: [TeamSchema], required: true },
-  matches:  [{ type: Schema.Types.ObjectId, ref: 'Match', required: true }], // Si usas ref
-  users:    [{ type: Schema.Types.ObjectId, ref: 'User', required: true }],  // Si usas ref
-  createdAt:{ type: Date, default: Date.now },
-  status:   { type: String, enum: ['open', 'closed', 'in_progress'], default: 'open' }
+export const PollaMongoose = new Schema<PollaDocument>({
+  name:      { type: String, required: true },
+  teams:     { type: [TeamSchema], required: true },
+  matches:   [{ type: Schema.Types.ObjectId, ref: 'Match', required: true }],
+  users:     [{ type: Schema.Types.ObjectId, ref: 'User', required: true }],
+  createdAt: { type: Date, default: Date.now },
+  status:    { type: String, enum: ['open', 'closed', 'in_progress'], default: 'open' }
+}, {
+  timestamps: true
 });
 
-import { model } from "mongoose";
-export const Polla = model<PollaDocument>("Polla", PollaSchema);
+export const Polla = model<PollaDocument>("Polla", PollaMongoose);

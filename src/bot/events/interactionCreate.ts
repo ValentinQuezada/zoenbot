@@ -1,7 +1,7 @@
 import { ChatInputCommandInteraction, Interaction } from "discord.js";
 import {
     sayCommand,
-    // createMatchCommand
+    createMatchCommand,
     
 } from "../interaction";
 
@@ -13,6 +13,9 @@ const interactionCreateEvent = async (interaction: Interaction) => {
   switch (commandInteraction.commandName) {
     case 'say':
       await sayCommand(commandInteraction);
+      break;
+    case 'createMatch':
+      await createMatchCommand(commandInteraction);
       break;
   }
 }
