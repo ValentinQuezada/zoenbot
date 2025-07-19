@@ -1,8 +1,8 @@
 import 'dotenv/config'
 import { Client, GatewayIntentBits, REST, Routes, Interaction } from 'discord.js'
 import commands from './config/commands'
-import holaCommand from './commands/hola'
-import checkstockCommand from './commands/checkstock'
+import holaCommand from './config/commands/hola'
+import checkstockCommand from './config/commands/checkstock'
 
 const client = new Client({
   intents: [

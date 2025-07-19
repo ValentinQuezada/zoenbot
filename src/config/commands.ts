@@ -1,3 +1,5 @@
+import sayCommand from "./commands/say";
+
 const commands = [
   {
     name: 'hola',
@@ -6,7 +8,8 @@ const commands = [
   {
     name: 'checkstock',
     description: 'Verifica el stock del producto'
-  }
+  },
+  sayCommand
 ];
 
 export default commands;
