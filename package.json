@@ -4,12 +4,8 @@
   "description": "A bot for web scrapping and send notification on discord",
   "main": "src/index.ts",
   "scripts": {
-<<<<<<< HEAD
-  "start": "node src/index.js"
-=======
     "start": "ts-node src/index.ts",
     "build": "tsc"
->>>>>>> 06a53453aac14b41927a61e9dbef2919f105535c
   },
   "keywords": [],
   "author": "",
