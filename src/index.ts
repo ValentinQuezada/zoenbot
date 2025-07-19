@@ -49,6 +49,7 @@ BOT_CLIENT.on('messageCreate', async (message: Message) => {
 
     // load context
     const conversation = context.map(m => `${m.author.username}: ${m.content}`).join('\n');
+  
     const summary = await summarize(conversation);
     const summaryText = summary.text as string;
 
@@ -56,10 +57,9 @@ BOT_CLIENT.on('messageCreate', async (message: Message) => {
 
     // get response
     const response = await chat(cleanMessage,summaryText);
+
     console.log(response.text as string)
-    if (response && typeof response === 'object' && 'content' in response) {
-      await message.reply(response.text as string);
-    }
+    await message.reply(response.text as string);
   }
 });
 
