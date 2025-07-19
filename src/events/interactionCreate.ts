@@ -15,5 +15,4 @@ const interactionCreateEvent = async (interaction: Interaction) => {
   }
 }
 
-
 export default interactionCreateEvent;
