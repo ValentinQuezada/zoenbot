@@ -12,3 +12,6 @@ run:
 database:
 	npm install mongoose
 	npm install -D @types/mongoose
+
+schemas:
+	npm install zod
