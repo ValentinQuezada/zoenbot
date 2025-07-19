@@ -1,16 +1,10 @@
 import 'dotenv/config'
-import { Client, GatewayIntentBits, REST, Routes, Interaction, Message } from 'discord.js'
+import { Client, GatewayIntentBits, REST, Routes, Message } from 'discord.js'
 import commands from './config/commands'
 import interactionCreateEvent from './events/interactionCreate';
 import {chat, summarize} from "./gen/client"
-
-const BOT_CLIENT = new Client({
-  intents: [
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.MessageContent
-  ]
-})
+import { BOT_CLIENT } from './generals';
+import { replaceMentionsWithUsernames } from './generals';
 
 const rest = new REST({ version: '10' }).setToken(process.env.TOKEN_DISCORD as string)
 
@@ -28,35 +22,34 @@ BOT_CLIENT.once('ready', async () => {
 
 BOT_CLIENT.on('interactionCreate', interactionCreateEvent);
 
+
 BOT_CLIENT.on('messageCreate', async (message: Message) => {
   if (message.author.bot) return;
 
   const key = message.channel.id;
 
-  // clean all messages with a mention
-  // replace id with username
-
-  // GET CHANNEL CONTEXT
   if (!contextMap.has(key)) { contextMap.set(key, []); }
   const context = contextMap.get(key)!;
   context.push(message);
   if (context.length > 30) context.shift();
 
-  // IF TAGGED
+  const cleanedContext = context.map(m => ({
+    ...m,
+    content: replaceMentionsWithUsernames(m)
+  }));
+
   if (BOT_CLIENT.user && message.mentions.has(BOT_CLIENT.user.id)) {
     const botMention = `<@${BOT_CLIENT.user.id}>`;
     const cleanMessage = message.content.replace(botMention, '').trim();
 
-    // load context
-    const conversation = context.map(m => `${m.author.username}: ${m.content}`).join('\n');
+    const conversation = cleanedContext.map(m => `${m.author.username}: ${m.content}`).join('\n');
   
     const summary = await summarize(conversation);
     const summaryText = summary.text as string;
 
     console.log(summaryText)
 
-    // get response
-    const response = await chat(cleanMessage,summaryText);
+    const response = await chat(cleanMessage, summaryText);
 
     console.log(response.text as string)
     await message.reply(response.text as string);
