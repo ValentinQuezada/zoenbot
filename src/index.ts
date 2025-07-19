@@ -4,7 +4,7 @@ import commands from './config/commands'
 import interactionCreateEvent from './events/interactionCreate';
 import {chat, summarize} from "./gen/client"
 
-const client = new Client({
+const BOT_CLIENT = new Client({
   intents: [
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMessages,
@@ -16,21 +16,25 @@ const rest = new REST({ version: '10' }).setToken(process.env.TOKEN_DISCORD as s
 
 export const contextMap = new Map<string, Message[]>();
 
-client.once('ready', async () => {
-  if (!client.user) return
-  console.log(`Logged in as ${client.user.tag}!`)
+BOT_CLIENT.once('ready', async () => {
+  if (!BOT_CLIENT.user) return
+  console.log(`Logged in as ${BOT_CLIENT.user.tag}!`)
   await rest.put(
-    Routes.applicationGuildCommands(client.user.id, '1396212612429254767'),
+    Routes.applicationGuildCommands(BOT_CLIENT.user.id, '1396212612429254767'),
     { body: commands }
   )
   console.log('Slash commands registered!')
 })
 
 
-client.on('interactionCreate', interactionCreateEvent);
+BOT_CLIENT.on('interactionCreate', interactionCreateEvent);
+
+BOT_CLIENT.login(process.env.TOKEN_DISCORD);
+
+export default BOT_CLIENT;
 
 
-client.on('messageCreate', async (message: Message) => {
+BOT_CLIENT.on('messageCreate', async (message: Message) => {
   if (message.author.bot) return;
 
   const key = message.channel.id;
@@ -42,8 +46,8 @@ client.on('messageCreate', async (message: Message) => {
   if (context.length > 15) context.shift();
 
   // IF TAGGED
-  if (client.user && message.mentions.has(client.user.id)) {
-    const botMention = `<@${client.user.id}>`;
+  if (BOT_CLIENT.user && message.mentions.has(BOT_CLIENT.user.id)) {
+    const botMention = `<@${BOT_CLIENT.user.id}>`;
     const cleanMessage = message.content.replace(botMention, '').trim();
     const summary = await summarize(key);
     const summaryText = summary.text as string;
@@ -56,4 +60,6 @@ client.on('messageCreate', async (message: Message) => {
   }
 });
 
-client.login(process.env.TOKEN_DISCORD)
+BOT_CLIENT.login(process.env.TOKEN_DISCORD);
+
+export default BOT_CLIENT;
