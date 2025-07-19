@@ -35,7 +35,7 @@ BOT_CLIENT.on('messageCreate', async (message: Message) => {
       botresponds(message,cleanedContext)
     }
     else {
-      botresponds(message,cleanedContext)
+      await message.reply("No eres admin provinciano");
     }
   }
   
