@@ -33,27 +33,30 @@ BOT_CLIENT.on('messageCreate', async (message: Message) => {
 
   const key = message.channel.id;
 
+  // clean all messages with a mention
+  // replace id with username
+
   // GET CHANNEL CONTEXT
   if (!contextMap.has(key)) { contextMap.set(key, []); }
   const context = contextMap.get(key)!;
   context.push(message);
-  if (context.length > 15) context.shift();
+  if (context.length > 30) context.shift();
 
   // IF TAGGED
   if (BOT_CLIENT.user && message.mentions.has(BOT_CLIENT.user.id)) {
     const botMention = `<@${BOT_CLIENT.user.id}>`;
     const cleanMessage = message.content.replace(botMention, '').trim();
-    const conversation = context.map(m => `${m.author.username}: ${m.content}`).join('\n');
-    
-    console.log(conversation)
 
+    // load context
+    const conversation = context.map(m => `${m.author.username}: ${m.content}`).join('\n');
     const summary = await summarize(conversation);
     const summaryText = summary.text as string;
 
     console.log(summaryText)
 
+    // get response
     const response = await chat(cleanMessage,summaryText);
-    console.log(response.text)
+    console.log(response.text as string)
     if (response && typeof response === 'object' && 'content' in response) {
       await message.reply(response.text as string);
     }
