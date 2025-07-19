@@ -27,7 +27,6 @@ export async function botresponds(message: Message, cleanedContext: any) {
     const conversation = cleanedContext.map((m: Message) => `${m.author.username}: ${m.content}`).join('\n');
     const summary = await summarize(conversation);
     const summaryText = summary.text as string;
-    console.log(summaryText)
 
     const response = await chat(cleanMessage, summaryText);
     await message.reply(response.text as string);
