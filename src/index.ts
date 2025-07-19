@@ -36,4 +36,17 @@ client.on('interactionCreate', async (interaction: Interaction) => {
   }
 })
 
+
+client.on('messageCreate', async (message) => {
+  if (message.author.bot) return;
+
+  if (client.user && message.mentions.has(client.user.id)) {
+    await message.reply(`¡Me has taggeado!: ${message}`);
+  }
+});
+
+
+
+
+
 client.login(process.env.TOKEN_DISCORD)
