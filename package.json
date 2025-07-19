@@ -25,5 +25,13 @@
   },
   "eslintConfig": {
     "extends": "standard"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ValentinQuezada/zoenbot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ValentinQuezada/zoenbot/issues"
+  },
+  "homepage": "https://github.com/ValentinQuezada/zoenbot#readme"
 }
