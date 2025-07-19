@@ -1,4 +1,4 @@
-import sayCommand from "./commands/say";
+import sayCommand from "../commands/say";
 
 const commands = [
   {

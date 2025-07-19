@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.REQUIRED_ROLE = exports.GEMINI_API_KEY = exports.GUILD_ID = exports.CLIENT_ID = exports.TOKEN_DISCORD = exports.MONGO_DB_CONNECTION_STRING = exports.GENERAL_CHANNEL_ID = exports.OWNER_ID = void 0;
+exports.OWNER_ID = process.env.OWNER_ID;
+exports.GENERAL_CHANNEL_ID = process.env.GENERAL_CHANNEL_ID;
+exports.MONGO_DB_CONNECTION_STRING = process.env.MONGO_DB_CONNECTION_STRING;
+exports.TOKEN_DISCORD = process.env.TOKEN_DISCORD;
+exports.CLIENT_ID = process.env.CLIENT_ID;
+exports.GUILD_ID = process.env.GUILD_ID;
+exports.GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+exports.REQUIRED_ROLE = process.env.REQUIRED_ROLE || "ADMIN";

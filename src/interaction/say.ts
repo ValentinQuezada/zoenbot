@@ -1,5 +1,5 @@
 import { CommandInteraction, GuildMember } from "discord.js";
-import { GENERAL_CHANNEL_ID, OWNER_ID, REQUIRED_ROLE } from "../../config/credentials";
+import { GENERAL_CHANNEL_ID, OWNER_ID, REQUIRED_ROLE } from "../config/credentials";
 
 const sayCommand = async (interaction: CommandInteraction) => {
   if (!interaction.guild) {

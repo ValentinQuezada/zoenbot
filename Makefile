@@ -9,6 +9,9 @@ initialize:
 run:
 	npx ts-node src/index.ts
 
+build:
+	npm run build
+
 database:
 	npm install mongoose
 	npm install -D @types/mongoose

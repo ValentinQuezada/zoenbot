@@ -1,7 +1,7 @@
 import { CommandInteraction, Interaction } from "discord.js";
 import {
     sayCommand
-} from "./interaction";
+} from "../interaction";
 
 const interactionCreateEvent = async (interaction: Interaction) => {
     if (!interaction.isCommand()) return;
