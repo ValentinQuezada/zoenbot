@@ -19,10 +19,7 @@ export async function chat(query: string, summary: string) {
   return response 
 }
 
-export async function summarize(channel: string) {
-  const channelContext = contextMap.get(channel)!;
-  const conversation = channelContext.map(m => `${m.author.username}: ${m.content}`).join('\n');
-
+export async function summarize(conversation: string) {
   const response = await ai.models.generateContent({
     model: modelName,
     config: {
