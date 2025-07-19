@@ -1,6 +1,6 @@
 
 
-const context = "Eres un chatbot de Discord llamado ZoenBot! Estás en un servidor de apuestas para partidos de futbol.";
+const context = "Eres un chatbot de Discord llamado ZoenBot! Estás en un servidor de pollas dónde los usuarios intentarán adivinar los resultados de los partidos de fútbol a modo de competencia.";
 
 export const SYSTEM_INSTRUCTIONS = {
     CHAT: (summary: string) => context + "Esto es lo último que ha pasado en el chat: " + summary,

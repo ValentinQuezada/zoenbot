@@ -39,19 +39,15 @@ BOT_CLIENT.on('messageCreate', async (message: Message) => {
   }));
 
   if (BOT_CLIENT.user && message.mentions.has(BOT_CLIENT.user.id)) {
-    const botMention = `<@${BOT_CLIENT.user.id}>`;
-    const cleanMessage = message.content.replace(botMention, '').trim();
-
     const conversation = cleanedContext.map(m => `${m.author.username}: ${m.content}`).join('\n');
-  
     const summary = await summarize(conversation);
     const summaryText = summary.text as string;
-
     console.log(summaryText)
 
+    const botMention = `<@${BOT_CLIENT.user.id}>`;
+    const cleanMessage = message.content.replace(botMention, '').trim();
+    
     const response = await chat(cleanMessage, summaryText);
-
-    console.log(response.text as string)
     await message.reply(response.text as string);
   }
 });
