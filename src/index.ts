@@ -1,7 +1,8 @@
 import 'dotenv/config'
-import { Client, GatewayIntentBits, REST, Routes, Interaction } from 'discord.js'
+import { Client, GatewayIntentBits, REST, Routes, Interaction, Message } from 'discord.js'
 import commands from './config/commands'
 import interactionCreateEvent from './events/interactionCreate';
+import {chat} from "./gen/client"
 
 const BOT_CLIENT = new Client({
   intents: [
