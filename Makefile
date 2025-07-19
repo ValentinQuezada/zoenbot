@@ -18,3 +18,6 @@ database:
 
 schemas:
 	npm install zod
+
+google:
+	npm install @google/genai
