@@ -1,10 +1,8 @@
 import 'dotenv/config'
-import { Client, GatewayIntentBits, REST, Routes, Message } from 'discord.js'
+import { REST, Routes, Message } from 'discord.js'
 import commands from './config/commands'
 import interactionCreateEvent from './events/interactionCreate';
-import {chat, summarize} from "./gen/client"
-import { BOT_CLIENT } from './generals';
-import { replaceMentionsWithUsernames } from './generals';
+import { BOT_CLIENT, botresponds, generalprocessing} from './generals';
 
 const rest = new REST({ version: '10' }).setToken(process.env.TOKEN_DISCORD as string)
 
@@ -26,34 +24,12 @@ BOT_CLIENT.on('interactionCreate', interactionCreateEvent);
 BOT_CLIENT.on('messageCreate', async (message: Message) => {
   if (message.author.bot) return;
 
-  const key = message.channel.id;
-
-  if (!contextMap.has(key)) { contextMap.set(key, []); }
-  const context = contextMap.get(key)!;
-  context.push(message);
-  if (context.length > 30) context.shift();
-
-  const cleanedContext = context.map(m => ({
-    ...m,
-    content: replaceMentionsWithUsernames(m)
-  }));
+  const cleanedContext = generalprocessing(message)
 
   if (BOT_CLIENT.user && message.mentions.has(BOT_CLIENT.user.id)) {
-    const botMention = `<@${BOT_CLIENT.user.id}>`;
-    const cleanMessage = message.content.replace(botMention, '').trim();
-
-    if ('sendTyping' in message.channel && typeof message.channel.sendTyping === 'function') {
-      await message.channel.sendTyping();
-    }
-
-    const conversation = cleanedContext.map(m => `${m.author.username}: ${m.content}`).join('\n');
-    const summary = await summarize(conversation);
-    const summaryText = summary.text as string;
-    console.log(summaryText)
-
-    const response = await chat(cleanMessage, summaryText);
-    await message.reply(response.text as string);
+    botresponds(message,cleanedContext)
   }
+  
 });
 
 BOT_CLIENT.login(process.env.TOKEN_DISCORD);
