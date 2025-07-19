@@ -1,8 +1,8 @@
-require('dotenv').config()
-const { Client, GatewayIntentBits, REST, Routes } = require('discord.js')
-const commands = require('./config/commands')
-const holaCommand = require('./commands/hola')
-const checkstockCommand = require('./commands/checkstock')
+import 'dotenv/config'
+import { Client, GatewayIntentBits, REST, Routes, Interaction } from 'discord.js'
+import commands from './config/commands'
+import holaCommand from './commands/hola'
+import checkstockCommand from './commands/checkstock'
 
 const client = new Client({
   intents: [
@@ -12,9 +12,10 @@ const client = new Client({
   ]
 })
 
-const rest = new REST({ version: '10' }).setToken(process.env.TOKEN_DISCORD)
+const rest = new REST({ version: '10' }).setToken(process.env.TOKEN_DISCORD as string)
 
 client.once('ready', async () => {
+  if (!client.user) return
   console.log(`Logged in as ${client.user.tag}!`)
   await rest.put(
     Routes.applicationGuildCommands(client.user.id, '1396212612429254767'),
@@ -23,7 +24,7 @@ client.once('ready', async () => {
   console.log('Slash commands registered!')
 })
 
-client.on('interactionCreate', async interaction => {
+client.on('interactionCreate', async (interaction: Interaction) => {
   if (!interaction.isCommand()) return
 
   if (interaction.commandName === 'hola') {
