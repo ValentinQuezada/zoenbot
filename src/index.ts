@@ -46,12 +46,8 @@ BOT_CLIENT.on('messageCreate', async (message: Message) => {
   
     const summary = await summarize(conversation);
     const summaryText = summary.text as string;
-
-    console.log(summaryText)
-
     const response = await chat(cleanMessage, summaryText);
 
-    console.log(response.text as string)
     await message.reply(response.text as string);
   }
 });
