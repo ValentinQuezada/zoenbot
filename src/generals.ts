@@ -47,3 +47,20 @@ export function generalprocessing (message: Message){
 
   return cleanedContext
 }
+
+export async function checkadmin(message: Message) {
+  if (!message.guild) return [];
+
+  try {
+    const member = await message.guild.members.fetch(message.author.id);
+    if (!member) return [];
+    // Returns array of role names in lowercase
+    const roles = member.roles.cache.map(role => role.name.toLowerCase());
+
+    return roles.find(role => role == "admin")
+
+  } catch (error) {
+    console.error("Error getting user roles:", error);
+    return [];
+  }
+}
