@@ -26,13 +26,7 @@ BOT_CLIENT.once('ready', async () => {
   console.log('Slash commands registered!')
 })
 
-
 BOT_CLIENT.on('interactionCreate', interactionCreateEvent);
-
-BOT_CLIENT.login(process.env.TOKEN_DISCORD);
-
-export default BOT_CLIENT;
-
 
 BOT_CLIENT.on('messageCreate', async (message: Message) => {
   if (message.author.bot) return;
