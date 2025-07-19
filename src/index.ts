@@ -3,7 +3,7 @@ import { Client, GatewayIntentBits, REST, Routes, Interaction } from 'discord.js
 import commands from './config/commands'
 import interactionCreateEvent from './events/interactionCreate';
 
-const client = new Client({
+const BOT_CLIENT = new Client({
   intents: [
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMessages,
@@ -13,17 +13,19 @@ const client = new Client({
 
 const rest = new REST({ version: '10' }).setToken(process.env.TOKEN_DISCORD as string)
 
-client.once('ready', async () => {
-  if (!client.user) return
-  console.log(`Logged in as ${client.user.tag}!`)
+BOT_CLIENT.once('ready', async () => {
+  if (!BOT_CLIENT.user) return
+  console.log(`Logged in as ${BOT_CLIENT.user.tag}!`)
   await rest.put(
-    Routes.applicationGuildCommands(client.user.id, '1396212612429254767'),
+    Routes.applicationGuildCommands(BOT_CLIENT.user.id, '1396212612429254767'),
     { body: commands }
   )
   console.log('Slash commands registered!')
 })
 
 
-client.on('interactionCreate', interactionCreateEvent);
+BOT_CLIENT.on('interactionCreate', interactionCreateEvent);
 
-client.login(process.env.TOKEN_DISCORD)
+BOT_CLIENT.login(process.env.TOKEN_DISCORD);
+
+export default BOT_CLIENT;
