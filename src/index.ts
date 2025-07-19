@@ -44,19 +44,12 @@ BOT_CLIENT.on('messageCreate', async (message: Message) => {
     const botMention = `<@${BOT_CLIENT.user.id}>`;
     const cleanMessage = message.content.replace(botMention, '').trim();
     const conversation = context.map(m => `${m.author.username}: ${m.content}`).join('\n');
-    
-    console.log(conversation)
-
+  
     const summary = await summarize(conversation);
     const summaryText = summary.text as string;
 
-    console.log(summaryText)
-
     const response = await chat(cleanMessage,summaryText);
-    console.log(response.text)
-    if (response && typeof response === 'object' && 'content' in response) {
-      await message.reply(response.text as string);
-    }
+    await message.reply(response.text as string);
   }
 });
 
