@@ -15,7 +15,8 @@ export async function chat(query: string, summary: string) {
     },
     contents: "Te acaban de taguear el siguiente mensaje: " + query,
   });
-  console.log(response.text);
+  
+  return response 
 }
 
 export async function summarize(channel: string) {

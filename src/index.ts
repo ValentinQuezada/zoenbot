@@ -2,7 +2,7 @@ import 'dotenv/config'
 import { Client, GatewayIntentBits, REST, Routes, Interaction, Message } from 'discord.js'
 import commands from './config/commands'
 import interactionCreateEvent from './events/interactionCreate';
-import {chat} from "./gen/client"
+import {chat, summarize} from "./gen/client"
 
 const client = new Client({
   intents: [
@@ -33,10 +33,10 @@ client.on('interactionCreate', interactionCreateEvent);
 client.on('messageCreate', async (message: Message) => {
   if (message.author.bot) return;
 
-  // GET CHANNEL CONTEXT
   const key = message.channel.id;
+
+  // GET CHANNEL CONTEXT
   if (!contextMap.has(key)) { contextMap.set(key, []); }
-  
   const context = contextMap.get(key)!;
   context.push(message);
   if (context.length > 15) context.shift();
@@ -45,8 +45,10 @@ client.on('messageCreate', async (message: Message) => {
   if (client.user && message.mentions.has(client.user.id)) {
     const botMention = `<@${client.user.id}>`;
     const cleanMessage = message.content.replace(botMention, '').trim();
+    const summary = await summarize(key);
+    const summaryText = summary.text as string;
 
-    const response = await chat(cleanMessage,'');
+    const response = await chat(cleanMessage,summaryText);
     console.log(response)
     if (response && typeof response === 'object' && 'content' in response) {
       await message.reply(response.content as string);
