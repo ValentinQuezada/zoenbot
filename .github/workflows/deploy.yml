@@ -23,11 +23,9 @@ jobs:
       - name: Initialize bot
         run: make initialize
 
-      - name: Run bot with Makefile
-        run: make run
-
       - name: Deploy with PM2
         run: |
           pm2 stop all || true
+          make run
           pm2 start src/index.ts --name bot --interpreter ts-node
           pm2 save
