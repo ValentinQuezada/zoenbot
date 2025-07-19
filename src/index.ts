@@ -53,7 +53,7 @@ BOT_CLIENT.on('messageCreate', async (message: Message) => {
     console.log(summaryText)
 
     const response = await chat(cleanMessage,summaryText);
-    console.log(response)
+    console.log(response.text)
     if (response && typeof response === 'object' && 'content' in response) {
       await message.reply(response.text as string);
     }
