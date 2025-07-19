@@ -1,45 +1,45 @@
-import { z } from "zod";
-import { teams } from "../constant/teams";
+// import { z } from "zod";
+// import { teams } from "../constant/teams";
 
-export const ScorePredictionSchema = z.object({
-    team1: z.string(),
-    team2: z.string(),
-    score: z.object({
-        team1: z.number(),
-        team2: z.number()
-    }),
-    advances: z.enum(["team1", "team2"]).optional()
-});
+// export const ScorePredictionSchema = z.object({
+//     team1: z.string(),
+//     team2: z.string(),
+//     score: z.object({
+//         team1: z.number(),
+//         team2: z.number()
+//     }),
+//     advances: z.enum(["team1", "team2"]).optional()
+// });
 
-export const ExtraScorePredictionSchema = ScorePredictionSchema.transform(data => {
-    if (data.advances === undefined) {
-        return {
-            ...data, 
-            advances: (data.score.team1 > data.score.team2 ? "team1" : "team2") as "team1" | "team2"
-        };
-    }
-    return data;
-});
+// export const ExtraScorePredictionSchema = ScorePredictionSchema.transform(data => {
+//     if (data.advances === undefined) {
+//         return {
+//             ...data, 
+//             advances: (data.score.team1 > data.score.team2 ? "team1" : "team2") as "team1" | "team2"
+//         };
+//     }
+//     return data;
+// });
 
-export type ScorePredictionType = z.infer<typeof ScorePredictionSchema>;
+// export type ScorePredictionType = z.infer<typeof ScorePredictionSchema>;
 
-interface GenContentSuccessResponse<T> {
-    success: true;
-    data: T;
-}
+// interface GenContentSuccessResponse<T> {
+//     success: true;
+//     data: T;
+// }
 
-interface GenContentErrorResponse {
-    success: false;
-    error: string;
-    data?: never;
-}
+// interface GenContentErrorResponse {
+//     success: false;
+//     error: string;
+//     data?: never;
+// }
 
-export type GenContentResponse<T> = GenContentSuccessResponse<T> | GenContentErrorResponse;
+// export type GenContentResponse<T> = GenContentSuccessResponse<T> | GenContentErrorResponse;
 
-export type TeamNameType = {
-    team: string;
-};
+// export type TeamNameType = {
+//     team: string;
+// };
 
-export const TeamNameSchema = z.object({
-    team: z.enum([...teams] as [string, ...string[]])
-});
+// export const TeamNameSchema = z.object({
+//     team: z.enum([...teams] as [string, ...string[]])
+// });
