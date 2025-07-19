@@ -4,7 +4,7 @@ import { createMatch } from "../database/controllers";
 import { checkRole } from "../utils/checkRole";
 import BOT_CLIENT from "../index";
 import { GENERAL_CHANNEL_ID } from "../config/credentials";
-import { mapTeamName } from "../gen/client";
+import { mapTeamName } from "../gen/client.ts";
 
 const createMatchCommand = async (interaction: ChatInputCommandInteraction) => {
   const hasRole = await checkRole(interaction, "ADMIN");
