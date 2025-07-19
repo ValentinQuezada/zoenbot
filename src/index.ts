@@ -1,7 +1,7 @@
 import 'dotenv/config'
 import { REST, Routes, Message } from 'discord.js'
 import commands from './config/commands'
-import interactionCreateEvent from './events/interactionCreate';
+import interactionCreateEvent from './bot/events/interactionCreate';
 import { BOT_CLIENT, botresponds, generalprocessing} from './generals';
 
 const rest = new REST({ version: '10' }).setToken(process.env.TOKEN_DISCORD as string)
