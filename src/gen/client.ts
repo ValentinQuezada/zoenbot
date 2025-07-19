@@ -14,5 +14,6 @@ export async function chat(query: string) {
     },
     contents: query,
   });
-  console.log(response.text);
+
+  return response 
 }

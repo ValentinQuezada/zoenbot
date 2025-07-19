@@ -2,6 +2,8 @@ import 'dotenv/config'
 import { Client, GatewayIntentBits, REST, Routes, Interaction } from 'discord.js'
 import commands from './config/commands'
 import interactionCreateEvent from './events/interactionCreate';
+import {chat} from "./gen/client"
+import { Message } from 'discord.js'
 
 const client = new Client({
   intents: [
@@ -25,5 +27,20 @@ client.once('ready', async () => {
 
 
 client.on('interactionCreate', interactionCreateEvent);
+
+client.on("messageCreate", async (message: Message) => {
+  if (message.author.bot) return;
+
+  if (client.user && message.mentions.has(client.user.id)) {
+    const botMention = `<@${client.user.id}>`;
+    const cleanMessage = message.content.replace(botMention, '').trim();
+
+    const response = await chat(cleanMessage);
+    console.log(response)
+    if (response && typeof response === 'object' && 'content' in response) {
+      await message.reply(response.content as string);
+    }
+  }
+});
 
 client.login(process.env.TOKEN_DISCORD)
