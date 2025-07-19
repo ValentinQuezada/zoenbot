@@ -1,8 +1,8 @@
 import 'dotenv/config'
 import { Client, GatewayIntentBits, REST, Routes, Interaction, Message } from 'discord.js'
 import commands from './config/commands'
-import holaCommand from './commands/hola'
-import checkstockCommand from './commands/checkstock'
+import interactionCreateEvent from './events/interactionCreate';
+import {chat} from "./gen/client"
 
 const client = new Client({
   intents: [
@@ -26,18 +26,8 @@ client.once('ready', async () => {
   console.log('Slash commands registered!')
 })
 
-client.on('interactionCreate', async (interaction: Interaction) => {
-  if (!interaction.isCommand()) return
 
-  if (interaction.commandName === 'hola') {
-    await holaCommand(interaction)
-  }
-
-  if (interaction.commandName === 'checkstock') {
-    await checkstockCommand(interaction)
-  }
-})
-
+client.on('interactionCreate', interactionCreateEvent);
 
 
 client.on('messageCreate', async (message: Message) => {
@@ -53,12 +43,15 @@ client.on('messageCreate', async (message: Message) => {
 
   // IF TAGGED
   if (client.user && message.mentions.has(client.user.id)) {
-    await message.reply(`¡Me has taggeado!: ${message}`);
+    const botMention = `<@${client.user.id}>`;
+    const cleanMessage = message.content.replace(botMention, '').trim();
+
+    const response = await chat(cleanMessage,'');
+    console.log(response)
+    if (response && typeof response === 'object' && 'content' in response) {
+      await message.reply(response.content as string);
+    }
   }
 });
-
-
-
-
 
 client.login(process.env.TOKEN_DISCORD)

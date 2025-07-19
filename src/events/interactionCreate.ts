@@ -1,4 +1,4 @@
-import { CommandInteraction, Interaction } from "discord.js";
+import { ChatInputCommandInteraction, Interaction } from "discord.js";
 import {
     sayCommand
 } from "../interaction";
@@ -6,7 +6,7 @@ import {
 const interactionCreateEvent = async (interaction: Interaction) => {
     if (!interaction.isCommand()) return;
   
-  const commandInteraction = interaction as CommandInteraction;
+  const commandInteraction = interaction as ChatInputCommandInteraction;
   
   switch (commandInteraction.commandName) {
     case 'say':
@@ -14,6 +14,5 @@ const interactionCreateEvent = async (interaction: Interaction) => {
       break;
   }
 }
-
 
 export default interactionCreateEvent;

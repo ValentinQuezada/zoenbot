@@ -1,7 +1,7 @@
-import { CommandInteraction, GuildMember } from "discord.js";
+import { ChatInputCommandInteraction, GuildMember } from "discord.js";
 import { GENERAL_CHANNEL_ID, OWNER_ID, REQUIRED_ROLE } from "../config/credentials";
 
-const sayCommand = async (interaction: CommandInteraction) => {
+const sayCommand = async (interaction: ChatInputCommandInteraction) => {
   if (!interaction.guild) {
     await interaction.reply({
       content: '⛔ Este comando solo puede usarse en un servidor.',
@@ -22,14 +22,16 @@ const sayCommand = async (interaction: CommandInteraction) => {
     return;
   }
 
-  const message = interaction.options.get('message')?.value as string;
+  const message = interaction.options.getString('message');
+
   if (
-      interaction.channel &&
-      'send' in interaction.channel &&
-      typeof interaction.channel.send === 'function'
+    interaction.channel &&
+    'send' in interaction.channel &&
+    typeof interaction.channel.send === 'function'
   ) {
-      await interaction.channel.send(message);
+    await interaction.channel.send(message || '');
   }
+
   await interaction.reply({
     content: `✅ ¡Mensaje enviado con éxito!`,
     ephemeral: true

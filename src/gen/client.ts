@@ -30,5 +30,6 @@ export async function summarize(channel: string) {
     },
     contents: conversation,
   });
-  console.log(response.text);
+
+  return response 
 }
