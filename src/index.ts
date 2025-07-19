@@ -2,7 +2,7 @@ import 'dotenv/config'
 import { Client, GatewayIntentBits, REST, Routes, Message } from 'discord.js'
 import commands from './config/commands'
 import interactionCreateEvent from './events/interactionCreate';
-import {chat, summarize} from "./gen/client.ts"
+import {chat, summarize} from "./gen/client"
 import { BOT_CLIENT } from './generals';
 import { replaceMentionsWithUsernames } from './generals';
 

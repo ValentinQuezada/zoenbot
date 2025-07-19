@@ -1,7 +1,6 @@
 import { GoogleGenAI } from "@google/genai";
 import { GEMINI_API_KEY } from "../config/credentials";
 import { SYSTEM_INSTRUCTIONS } from "./prompts";
-import { contextMap } from "../index";
 
 const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY});
 const modelName = "gemini-2.5-flash";
