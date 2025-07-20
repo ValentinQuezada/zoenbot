@@ -3,10 +3,12 @@ import {
     sayCommand,
     createMatchCommand,
     setGroupStageOnlyCommand,
-    
+    createPollaCommand,
+    seeAuraCommand,
+    seeResultsCommand,
+    seeMatches,
+    sendScorePredictionCommand    
 } from "../interaction";
-
-import seeMatches from "../interaction/seeMatches"
 
 const interactionCreateEvent = async (interaction: Interaction) => {
     if (!interaction.isCommand()) return;
