@@ -30,6 +30,10 @@ export async function botResponse(message: Message, cleanedContext: any) {
 }
 
 async function botChat(message: Message, cleanMessage: string, cleanedContext: any) {
+    const isMention = BOT_CLIENT.user && message.mentions.has(BOT_CLIENT.user.id);
+
+    if (!isMention) return;
+
     if ('sendTyping' in message.channel && typeof message.channel.sendTyping === 'function') {
       await message.channel.sendTyping();
     }

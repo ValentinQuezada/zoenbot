@@ -36,6 +36,8 @@ BOT_CLIENT.on('interactionCreate', interactionCreateEvent);
 BOT_CLIENT.on('messageCreate', async (message: Message) => {
   if (message.author.bot) return;
 
+  console.log(message)
+
   const cleanedContext = generalprocessing(message)
 
   const response = await botResponse(message,cleanedContext);  
