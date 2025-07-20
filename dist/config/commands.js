@@ -4,15 +4,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const say_1 = __importDefault(require("../commands/say"));
+const createMatch_1 = __importDefault(require("../commands/createMatch"));
 const commands = [
-    {
-        name: 'hola',
-        description: 'Saluda al bot'
-    },
-    {
-        name: 'checkstock',
-        description: 'Verifica el stock del producto'
-    },
-    say_1.default
+    say_1.default,
+    createMatch_1.default
 ];
 exports.default = commands;

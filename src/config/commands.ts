@@ -1,7 +1,10 @@
 import sayCommand from "../commands/say";
+import createMatch from "../commands/createMatch";
+
 
 const commands = [
-  sayCommand
+  sayCommand,
+  createMatch
 ];
 
 export default commands;

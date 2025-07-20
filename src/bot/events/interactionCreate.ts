@@ -1,6 +1,8 @@
 import { ChatInputCommandInteraction, Interaction } from "discord.js";
 import {
-    sayCommand
+    sayCommand,
+    createMatchCommand,
+    
 } from "../interaction";
 
 const interactionCreateEvent = async (interaction: Interaction) => {
@@ -12,7 +14,24 @@ const interactionCreateEvent = async (interaction: Interaction) => {
     case 'say':
       await sayCommand(commandInteraction);
       break;
+    case 'createMatch':
+      await createMatchCommand(commandInteraction);
+      break;
   }
 }
 
-export default interactionCreateEvent;
+
+const InteractionwithMessage = async (params:string) => {
+  switch (params){
+    case "see_matches":
+      console.log("Comando 01")
+    case "see-results":
+      console.log("Comando 02")
+    case "see-my-aura":
+      console.log("Comando 03")
+    default:
+      console.log("Comand default")
+  }
+}
+
+export { InteractionwithMessage, interactionCreateEvent };
