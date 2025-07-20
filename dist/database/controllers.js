@@ -13,22 +13,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createMatch = createMatch;
-exports.createPolla = createPolla;
 exports.retrieveMatches = retrieveMatches;
 const match_1 = require("../schemas/match");
-const polla_1 = require("../schemas/polla");
 const connections_1 = __importDefault(require("./connections"));
+// Crear un Match
 function createMatch(match) {
     return __awaiter(this, void 0, void 0, function* () {
         const dbClient = yield (0, connections_1.default)();
         const response = yield dbClient.model("Match", match_1.MatchMongoose).create(match);
-        return response;
-    });
-}
-function createPolla(polla) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const dbClient = yield (0, connections_1.default)();
-        const response = yield dbClient.model("Polla", polla_1.PollaMongoose).create(polla);
         return response;
     });
 }

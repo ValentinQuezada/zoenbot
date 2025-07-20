@@ -1,10 +1,10 @@
-import { CommandInteraction } from "discord.js";
+import { ChatInputCommandInteraction } from "discord.js";
 import databaseConnection from "../../database/connections";
 import { PredictionSchema } from "../../schemas/prediction";
 import { horaSimpleConHrs } from "../../utils/timestamp";
 import { getSupLabels } from "../../utils/sup";
 
-const seeResultsCommand = async (interaction: CommandInteraction) => {
+const seeResultsCommand = async (interaction: ChatInputCommandInteraction) => {
     await interaction.deferReply({ ephemeral: true });
 
     const db = await databaseConnection();

@@ -16,7 +16,7 @@ const connections_1 = __importDefault(require("../../database/connections"));
 const prediction_1 = require("../../schemas/prediction");
 const timestamp_1 = require("../../utils/timestamp");
 const sup_1 = require("../../utils/sup");
-const seeMatches = (interaction) => __awaiter(void 0, void 0, void 0, function* () {
+const seeMatchesCommand = (interaction) => __awaiter(void 0, void 0, void 0, function* () {
     yield interaction.deferReply({ ephemeral: true });
     const db = yield (0, connections_1.default)();
     const Match = db.model("Match");
@@ -70,4 +70,4 @@ const seeMatches_simple = (_a) => __awaiter(void 0, [_a], void 0, function* ({ u
         .join("\n");
     yield replyFn(message);
 });
-exports.default = { seeMatches, seeMatches_simple };
+exports.default = { seeMatchesCommand, seeMatches_simple };

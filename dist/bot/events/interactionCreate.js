@@ -22,8 +22,20 @@ const interactionCreateEvent = (interaction) => __awaiter(void 0, void 0, void 0
         case 'createMatch':
             yield (0, interaction_1.createMatchCommand)(commandInteraction);
             break;
+        case 'createPolla':
+            yield (0, interaction_1.createPollaCommand)(commandInteraction);
+            break;
         case 'setGroupStageOnly':
             yield (0, interaction_1.setGroupStageOnlyCommand)(commandInteraction);
+            break;
+        case 'seeMatches':
+            yield (0, interaction_1.seeMatchesCommand)(commandInteraction);
+            break;
+        case 'seeResults':
+            yield (0, interaction_1.seeResultsCommand)(commandInteraction);
+            break;
+        case 'sendScorePrediction':
+            yield (0, interaction_1.sendScorePredictionCommand)(commandInteraction);
             break;
     }
 });
@@ -31,7 +43,7 @@ exports.interactionCreateEvent = interactionCreateEvent;
 const InteractionwithMessage = (message, params) => __awaiter(void 0, void 0, void 0, function* () {
     switch (params) {
         case "see_matches":
-            yield interaction_1.seeMatches.seeMatches_simple({
+            yield interaction_1.seeMatchesCommand.seeMatches_simple({
                 userId: message.author.id,
                 replyFn: (content) => message.reply(content)
             });

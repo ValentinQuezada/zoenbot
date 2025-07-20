@@ -8,13 +8,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const controllers_1 = require("../../database/controllers");
 const checkRole_1 = require("../../utils/checkRole");
-const index_1 = __importDefault(require("../../index"));
+const generals_1 = require("../../generals");
 const credentials_1 = require("../../config/credentials");
 const client_1 = require("../../gen/client");
 const createMatchCommand = (interaction) => __awaiter(void 0, void 0, void 0, function* () {
@@ -67,11 +64,10 @@ const createMatchCommand = (interaction) => __awaiter(void 0, void 0, void 0, fu
         statsAnnounced: false
     });
     const announceMsg = `📢 ***¡Nuevo partido creado!**\n**${team1} vs. ${team2}**\n🕒 Empieza el ${datetime} (hora Perú)\nEnvía tu predicción con* \`/send-score-prediction\``;
-    // send announcement to the general channel
     try {
-        const channel = yield index_1.default.channels.fetch(credentials_1.GENERAL_CHANNEL_ID);
+        const channel = yield generals_1.BOT_CLIENT.channels.fetch(credentials_1.GENERAL_CHANNEL_ID);
         if (channel && 'send' in channel) {
-            yield channel.send(announceMsg);
+            yield channel.send(announceMsg); // puedes tipar mejor si conoces que es TextChannel
         }
     }
     catch (e) {
