@@ -13,9 +13,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install dependencies
-        run: npm install
-
       - name: Create .env file
         run: |
           echo "TOKEN_DISCORD=${{ secrets.TOKEN_DISCORD }}" >> .env
