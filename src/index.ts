@@ -10,6 +10,16 @@ const rest = new REST({ version: '10' }).setToken(process.env.TOKEN_DISCORD as s
 
 export const contextMap = new Map<string, Message[]>();
 
+import databaseConnection from "./database/connections";
+
+databaseConnection()
+  .then(() => {
+    console.log("Intentando conectar a la base de datos al iniciar el bot...");
+  })
+  .catch((err) => {
+    console.error("❌ Error al conectar a la base de datos:", err);
+  });
+
 BOT_CLIENT.once('ready', async () => {
   if (!BOT_CLIENT.user) return
   console.log(`Logged in as ${BOT_CLIENT.user.tag}!`)
