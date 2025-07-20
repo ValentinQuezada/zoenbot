@@ -1,14 +1,3 @@
-
-export const intuiton: Record<string, string[]> = {
-    "chat": [
-        "hola", "qué onda", "qué pasa", "qué hay", "todo bien", "gracias", "jaja", "ok", "vale", "perfecto", "entiendo", "me alegro", "cuéntame", "bro", "amigo", "amiga", "chido", "genial", "cool", "todo tranqui", "todo chill", "qué tal", "qué rollo", "qué tranza", "qué pedo", "qué show", "qué cuentas", "qué más", "todo piola", "todo fresh", "todo relax"
-    ],
-    "petition": [
-        "quiero", "puedes", "necesito", "por favor", "muestra", "dame", "ver", "envía", "manda",
-        "haz", "ayúdame", "enséñame", "búscame", "consígueme", "trae", "explica", "resuelve", "soluciona", "hazme el paro", "échame la mano", "pásame", "infórmame", "actualízame", "recomiéndame", "sugiéreme", "dime", "cuéntame", "ayuda", "apóyame"
-    ],
-}
-
 export const commands_intuition: Record<string, string[]> = {
     "see_matches": [
         "ver partidos activos, separados por los que has apostado y los que todavía no",
