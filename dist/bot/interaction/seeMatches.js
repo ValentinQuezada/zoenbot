@@ -45,4 +45,29 @@ const seeMatches = (interaction) => __awaiter(void 0, void 0, void 0, function* 
         .join("\n");
     yield interaction.editReply({ content: message });
 });
-exports.default = seeMatches;
+const seeMatches_simple = (_a) => __awaiter(void 0, [_a], void 0, function* ({ userId, replyFn }) {
+    const db = yield (0, connections_1.default)();
+    const Match = db.model("Match");
+    const Prediction = db.model("Prediction", prediction_1.PredictionSchema);
+    let matchFilter = { isFinished: false };
+    const matches = yield Match.find(matchFilter);
+    const predictions = yield Prediction.find({ userId });
+    const predictedMatchIds = new Set(predictions.map(p => p.matchId.toString()));
+    const missingMatches = matches.filter(m => !predictedMatchIds.has(m._id.toString()));
+    if (matches.length === 0) {
+        yield replyFn("📂​ No hay partidos activos.");
+        return;
+    }
+    let message = "🎲​ **Partidos activos:**\n";
+    message += matches
+        .map(match => {
+        const { sup } = (0, sup_1.getSupLabels)(match.matchType);
+        let item = `- **${(0, timestamp_1.diaSimple)(match.datetime)}, ${(0, timestamp_1.horaSimpleConHrs)(match.datetime)}:** ${match.team1} vs. ${match.team2}${sup} `;
+        const isMissing = missingMatches.includes(match.id);
+        const statusEmoji = isMissing ? "⏳" : "✅";
+        return item + statusEmoji;
+    })
+        .join("\n");
+    yield replyFn(message);
+});
+exports.default = { seeMatches, seeMatches_simple };

@@ -38,10 +38,16 @@ const InteractionwithMessage = async (message: Message, params:string) => {
       });
       break
     case "see-results":
-      console.log("Comando 02")
+      await seeResultsCommand.seeResults_simple({
+        userId: message.author.id,
+        replyFn: (content: string) => message.reply(content)
+      });
       break
     case "see-my-aura":
-      console.log("Comando 03")
+      await seeAuraCommand.seeAura_simple({
+        userId: message.author.id,
+        replyFn: (content: string) => message.reply(content)
+      });
       break
     default:
       console.log("Comand default")
