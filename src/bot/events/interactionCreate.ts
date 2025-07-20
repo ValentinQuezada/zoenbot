@@ -2,6 +2,7 @@ import { ChatInputCommandInteraction, Interaction } from "discord.js";
 import {
     sayCommand,
     createMatchCommand,
+    setGroupStageOnlyCommand
     
 } from "../interaction";
 
@@ -16,6 +17,9 @@ const interactionCreateEvent = async (interaction: Interaction) => {
       break;
     case 'createMatch':
       await createMatchCommand(commandInteraction);
+      break;
+    case 'setGroupStageOnly':
+      await setGroupStageOnlyCommand(commandInteraction);
       break;
   }
 }

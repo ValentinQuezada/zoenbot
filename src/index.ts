@@ -2,13 +2,23 @@ import 'dotenv/config'
 import { REST, Routes, Message } from 'discord.js'
 import commands from './config/commands'
 import {interactionCreateEvent, InteractionwithMessage} from './bot/events/interactionCreate';
-import { BOT_CLIENT, botresponds, generalprocessing} from './generals';
+import { BOT_CLIENT, botResponse, generalprocessing} from './generals';
 import { checkRole } from './utils/checkRole';
 import { checkadmin } from './generals';
 
 const rest = new REST({ version: '10' }).setToken(process.env.TOKEN_DISCORD as string)
 
 export const contextMap = new Map<string, Message[]>();
+
+import databaseConnection from "./database/connections";
+
+databaseConnection()
+  .then(() => {
+    console.log("Intentando conectar a la base de datos al iniciar el bot...");
+  })
+  .catch((err) => {
+    console.error("❌ Error al conectar a la base de datos:", err);
+  });
 
 BOT_CLIENT.once('ready', async () => {
   if (!BOT_CLIENT.user) return
@@ -28,17 +38,7 @@ BOT_CLIENT.on('messageCreate', async (message: Message) => {
 
   const cleanedContext = generalprocessing(message)
 
-  if (BOT_CLIENT.user && message.mentions.has(BOT_CLIENT.user.id)) {
-    const admin = await checkadmin(message)
-
-    if (admin){
-      botresponds(message,cleanedContext)
-    }
-    else {
-      await message.reply("No eres admin provinciano");
-    }
-  }
-  
+  botResponse(message,cleanedContext);  
 });
 
 BOT_CLIENT.login(process.env.TOKEN_DISCORD);
