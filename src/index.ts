@@ -1,7 +1,7 @@
 import 'dotenv/config'
 import { REST, Routes, Message } from 'discord.js'
 import commands from './config/commands'
-import interactionCreateEvent from './bot/events/interactionCreate';
+import {interactionCreateEvent, InteractionwithMessage} from './bot/events/interactionCreate';
 import { BOT_CLIENT, botresponds, generalprocessing} from './generals';
 import { checkRole } from './utils/checkRole';
 import { checkadmin } from './generals';
