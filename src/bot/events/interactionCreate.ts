@@ -26,7 +26,7 @@ const interactionCreateEvent = async (interaction: Interaction) => {
       await setGroupStageOnlyCommand(commandInteraction);
       break;
     case 'see-matches':
-      await seeMatchesCommand(commandInteraction);
+      await seeMatchesCommand.seeMatches(commandInteraction);
       break;
   }
 }
@@ -35,7 +35,7 @@ const interactionCreateEvent = async (interaction: Interaction) => {
 const InteractionwithMessage = async (message: Message, params:string) => {
   switch (params){
     case "see_matches":
-      await seeMatches.seeMatches_simple({
+      await seeMatchesCommand.seeMatches_simple({
         userId: message.author.id,
         replyFn: (content: string) => message.reply(content)
       });
