@@ -1,6 +1,6 @@
 import { CreateMatchType, MatchDocument } from "../schemas/match";
 import { MatchMongoose } from "../schemas/match";
-import { PollaDocument } from "../schemas/polla";
+import { PollaDocument, PollaSchema } from "../schemas/polla";
 import databaseConnection from "./connections";
 
 export async function createMatch(match: CreateMatchType) {
@@ -11,6 +11,6 @@ export async function createMatch(match: CreateMatchType) {
 
 export async function createPolla(polla: CreateMatchType) {
     const dbClient = await databaseConnection();
-    const response = await dbClient.model<PollaDocument>("Polla", MatchMongoose).create(polla);
+    const response = await dbClient.model<PollaDocument>("Polla", PollaSchema).create(polla);
     return response;
 }

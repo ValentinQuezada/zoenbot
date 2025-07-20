@@ -1,5 +1,3 @@
-
-
 const context = "Eres un chatbot de Discord llamado ZoenBot! Estás en un servidor de pollas dónde los usuarios intentarán adivinar los resultados de los partidos de fútbol a modo de competencia.";
 
 export const SYSTEM_INSTRUCTIONS = {
