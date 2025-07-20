@@ -1,5 +1,5 @@
 import { Client, GatewayIntentBits, Message} from 'discord.js'
-import {chat, summarize} from "./gen/client"
+import {chat, identify, summarize} from "./gen/client"
 import { contextMap } from '.';
 
 export const BOT_CLIENT = new Client({
@@ -17,13 +17,27 @@ export function replaceMentionsWithUsernames(msg: Message) {
   });
 }
 
-export async function botresponds(message: Message, cleanedContext: any) {
+export async function botResponse(message: Message, cleanedContext: any) {
     const botMention = BOT_CLIENT.user ? `<@${BOT_CLIENT.user.id}>` : '';
     const cleanMessage = botMention ? message.content.replace(botMention, '').trim() : message.content.trim();
+    const intention = await identify(cleanMessage);
+    const intentionstr = intention.text as string;
+    
+    if (intentionstr == "chat") {
+      botChat(message, cleanMessage, cleanedContext);
+    }
+    else {
+      await message.reply(intentionstr + " -> PLACEHOLDER PARA EL COMANDO LOL");
+    }
+    
+    return intentionstr
+}
+
+async function botChat(message: Message, cleanMessage: string, cleanedContext: any) {
     if ('sendTyping' in message.channel && typeof message.channel.sendTyping === 'function') {
       await message.channel.sendTyping();
     }
-
+    
     const conversation = cleanedContext.map((m: Message) => `${m.author.username}: ${m.content}`).join('\n');
     const summary = await summarize(conversation);
     const summaryText = summary.text as string;
@@ -31,6 +45,7 @@ export async function botresponds(message: Message, cleanedContext: any) {
     const response = await chat(cleanMessage, summaryText);
     await message.reply(response.text as string);
 }
+
 
 export function generalprocessing (message: Message){
     const key = message.channel.id;
