@@ -25,11 +25,7 @@ export async function botResponse(message: Message, cleanedContext: any) {
     
     if (intentionstr == "chat") {
       botChat(message, cleanMessage, cleanedContext);
-    }
-    else {
-      await message.reply(intentionstr + " -> PLACEHOLDER PARA EL COMANDO LOL");
-    }
-    
+    }    
     return intentionstr
 }
 

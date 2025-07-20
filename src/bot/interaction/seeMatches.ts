@@ -41,4 +41,43 @@ const seeMatches = async (interaction: CommandInteraction) => {
   await interaction.editReply({ content: message });
 }
 
-export default seeMatches;
+
+type SeeMatchesParams = {
+  userId: string;
+  replyFn: (msg: string) => Promise<any>;
+};
+
+
+const seeMatches_simple = async ({ userId, replyFn }: SeeMatchesParams) => {
+  const db = await databaseConnection();
+  const Match = db.model("Match");
+  const Prediction = db.model("Prediction", PredictionSchema);
+
+  let matchFilter: any = { isFinished: false };
+  const matches = await Match.find(matchFilter);
+
+  const predictions = await Prediction.find({ userId });
+  const predictedMatchIds = new Set(predictions.map(p => p.matchId.toString()));
+
+  const missingMatches = matches.filter(m => !predictedMatchIds.has(m._id.toString()));
+
+  if (matches.length === 0) {
+    await replyFn("📂​ No hay partidos activos.");
+    return;
+  }
+
+  let message = "🎲​ **Partidos activos:**\n";
+  message += matches
+    .map(match => {
+      const { sup } = getSupLabels(match.matchType);
+      let item = `- **${diaSimple(match.datetime)}, ${horaSimpleConHrs(match.datetime)}:** ${match.team1} vs. ${match.team2}${sup} `;
+      const isMissing = missingMatches.includes(match.id);
+      const statusEmoji = isMissing ? "⏳" : "✅";
+      return item + statusEmoji;
+    })
+    .join("\n");
+
+  await replyFn(message);
+};
+
+export default {seeMatches, seeMatches_simple};
