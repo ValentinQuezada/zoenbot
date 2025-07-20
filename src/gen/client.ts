@@ -9,6 +9,18 @@ import { extractFromCodeblock } from "../utils/matcher";
 const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY});
 const modelName = "gemini-2.5-flash";
 
+export async function identify(query:string) {
+  const response = await ai.models.generateContent({
+    model: modelName,
+    config: {
+      systemInstruction: SYSTEM_INSTRUCTIONS.IDENTIFY,
+      temperature: 0,
+    },
+    contents: "Este es el mensaje:" + query,
+  });
+  return response 
+}
+
 export async function chat(query: string, summary: string) {
   const response = await ai.models.generateContent({
     model: modelName,
@@ -35,7 +47,6 @@ export async function summarize(conversation: string) {
 
   return response 
 }
-
 
 export async function mapTeamName(
   query: string

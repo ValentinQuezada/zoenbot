@@ -1,10 +1,12 @@
-import { ChatInputCommandInteraction, Interaction } from "discord.js";
+import { ChatInputCommandInteraction, Interaction, Message } from "discord.js";
 import {
     sayCommand,
     createMatchCommand,
-    setGroupStageOnlyCommand
+    setGroupStageOnlyCommand,
     
 } from "../interaction";
+
+import seeMatches from "../interaction/seeMatches"
 
 const interactionCreateEvent = async (interaction: Interaction) => {
     if (!interaction.isCommand()) return;
@@ -25,16 +27,23 @@ const interactionCreateEvent = async (interaction: Interaction) => {
 }
 
 
-const InteractionwithMessage = async (params:string) => {
+const InteractionwithMessage = async (message: Message, params:string) => {
   switch (params){
     case "see_matches":
-      console.log("Comando 01")
+      await seeMatches.seeMatches_simple({
+        userId: message.author.id,
+        replyFn: (content: string) => message.reply(content)
+      });
+      break
     case "see-results":
       console.log("Comando 02")
+      break
     case "see-my-aura":
       console.log("Comando 03")
+      break
     default:
       console.log("Comand default")
+      break
   }
 }
 
