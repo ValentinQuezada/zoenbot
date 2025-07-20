@@ -1,5 +1,6 @@
 import { ClubWorldCupTeams2025 } from "../config/teams";
 import { commands_intuition } from "../utils/constants";
+import { ScorePredictionType } from "./interfaces";
 
 const context = "Eres un chatbot de Discord llamado ZoenBot! Estás en un servidor de pollas dónde los usuarios intentarán adivinar los resultados de los partidos de fútbol a modo de competencia.";
 const identify = JSON.stringify(commands_intuition);
@@ -23,5 +24,8 @@ export const SYSTEM_INSTRUCTIONS = {
             - "El City" -> "Manchester City (MCI)"
             - "PSG" -> "Paris Saint-Germain (PSG)"`
         }]
-    }
+    },
+    MATCH_MAPPING_EXTRA_TIME: (match: string) => `Using the following match: ${match}, format your response as a JSON object with the following structure: { \"team1\": string, \"team2\": string, \"advances\": \"team1\" | \"team2\", \"score\": { \"team1\": number, \"team2\": number } }, where team1 and team2 are written exactly as seen in: ${ClubWorldCupTeams2025.join(', ')}. Every field is required. The advances field should be what the user specified in the query or which team has more goals. The advances field should be "team1" or "team2".`,
+    EXTRA_TIME_SCORE: (wrongScore: ScorePredictionType) => "The following score prediction json is wrong because one team should have more goals than the other: " + JSON.stringify(wrongScore) + "\n\nYou will receive a new score result query. Modify the score json to match the new score result. Return the modified json { \"team1\": string, \"team2\": string, \"score\": { \"team1\": number, \"team2\": number }}. Every field is required.",
+    FINAL_SCORE: (matches: string[]) => `From the following list of matches, return the most similar match to the following:\n" + ${matches.join("\n")} + "\n\nFormat your response as a JSON object with the following structure: { \"team1\": string, \"team2\": string, \"score\": { \"team1\": number, \"team2\": number }}, where team1 and team2 are written exactly as seen in: ${ClubWorldCupTeams2025.join(', ')}. Every field is required.`
 }

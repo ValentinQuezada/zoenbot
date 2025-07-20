@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.commands_intuition = void 0;
-exports.commands_intuition = {
+export const commands_intuition: Record<string, string[]> = {
     "see_matches": [
         "ver partidos activos, separados por los que has apostado y los que todavía no",
         "muéstrame los partidos activos",
@@ -40,4 +37,4 @@ exports.commands_intuition = {
         "estado de mi aura",
         "mi aura actual",
     ]
-};
+}

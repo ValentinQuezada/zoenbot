@@ -22,16 +22,6 @@ exports.commands_intuition = {
         "mis predicciones",
         "cómo voy en la quiniela"
     ],
-    // "send-score-prediction": [
-    //     "mandar prediccion de un partido",
-    //     "quiero predecir un marcador",
-    //     "enviar resultado de partido",
-    //     "apostar marcador",
-    //     "hacer predicción de partido",
-    //     "poner mi predicción",
-    //     "dar mi pronóstico",
-    //     "predecir resultado"
-    // ],
     "see-my-aura": [
         "quiero ver mi aura",
         "muéstrame mi aura",

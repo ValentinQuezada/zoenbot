@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BOT_CLIENT = void 0;
 exports.replaceMentionsWithUsernames = replaceMentionsWithUsernames;
-exports.botresponds = botresponds;
+exports.botResponse = botResponse;
 exports.generalprocessing = generalprocessing;
 exports.checkadmin = checkadmin;
 const discord_js_1 = require("discord.js");
@@ -30,10 +30,20 @@ function replaceMentionsWithUsernames(msg) {
         return user ? `@${user.username}` : match;
     });
 }
-function botresponds(message, cleanedContext) {
+function botResponse(message, cleanedContext) {
     return __awaiter(this, void 0, void 0, function* () {
         const botMention = exports.BOT_CLIENT.user ? `<@${exports.BOT_CLIENT.user.id}>` : '';
         const cleanMessage = botMention ? message.content.replace(botMention, '').trim() : message.content.trim();
+        const intention = yield (0, client_1.identify)(cleanMessage);
+        const intentionstr = intention.text;
+        if (intentionstr == "chat") {
+            botChat(message, cleanMessage, cleanedContext);
+        }
+        return intentionstr;
+    });
+}
+function botChat(message, cleanMessage, cleanedContext) {
+    return __awaiter(this, void 0, void 0, function* () {
         if ('sendTyping' in message.channel && typeof message.channel.sendTyping === 'function') {
             yield message.channel.sendTyping();
         }

@@ -17,19 +17,23 @@ const user_1 = require("../../schemas/user");
 const setGroupStageOnlyCommand = (interaction) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     yield interaction.deferReply({ ephemeral: true });
+    console.log("Comando setGroupStageOnlyCommand ejecutado");
     const onlyGroupStage = (_a = interaction.options.get('solo_grupos')) === null || _a === void 0 ? void 0 : _a.value;
-    // Limit June 28, 2025, 11am
-    const deadlineLima = new Date(Date.UTC(2025, 5, 28, 16, 0, 0)); // 2025-06-28 00:00:00-05:00 = 2025-06-28 05:00:00 UTC
+    console.log("Valor de onlyGroupStage:", onlyGroupStage);
+    const deadlineLima = new Date(Date.UTC(2025, 5, 28, 16, 0, 0));
     const nowUTC = new Date();
     if (nowUTC >= deadlineLima) {
+        console.log("Plazo vencido, no se puede cambiar la opción.");
         yield interaction.editReply({
             content: "⏰ Ya no puedes cambiar esta opción. El plazo para elegir terminó."
         });
         return;
     }
     const db = yield (0, connections_1.default)();
+    console.log("Conexión a la base de datos obtenida:", !!db);
     const UserStats = db.model("UserStats", user_1.UserStatsSchema);
-    yield UserStats.updateOne({ userId: interaction.user.id }, { $set: { onlyGroupStage } }, { upsert: true });
+    const updateResult = yield UserStats.updateOne({ userId: interaction.user.id }, { $set: { onlyGroupStage } }, { upsert: true });
+    console.log("Resultado de updateOne:", updateResult);
     yield interaction.editReply({
         content: onlyGroupStage
             ? "🏳️‍🌈​ Has elegido **apostar solo en fase de grupos**. No estarás obligado a apostar en las siguientes fases. ¡¡ARRIBA ALIANZA!!"

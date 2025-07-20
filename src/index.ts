@@ -38,7 +38,13 @@ BOT_CLIENT.on('messageCreate', async (message: Message) => {
 
   const cleanedContext = generalprocessing(message)
 
-  botResponse(message,cleanedContext);  
+  const response = await botResponse(message,cleanedContext);  
+
+  if (response != "chat"){
+    InteractionwithMessage(message, response)
+  }
+
+
 });
 
 BOT_CLIENT.login(process.env.TOKEN_DISCORD);
