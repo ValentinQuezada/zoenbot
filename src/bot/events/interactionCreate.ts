@@ -29,10 +29,10 @@ const interactionCreateEvent = async (interaction: Interaction) => {
       await setGroupStageOnlyCommand(commandInteraction);
       break;
     case 'seeMatches':
-      await seeMatchesCommand(commandInteraction);
+      await seeMatchesCommand.seeMatchesCommand(commandInteraction);
       break;
     case 'seeResults':
-      await seeResultsCommand(commandInteraction);
+      await seeResultsCommand.seeResultsCommand(commandInteraction);
       break;
     case 'sendScorePrediction':
       await sendScorePredictionCommand(commandInteraction);
