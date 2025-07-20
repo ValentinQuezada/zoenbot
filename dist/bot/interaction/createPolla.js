@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createPollaCommand = void 0;
-const polla_1 = require("../schemas/polla"); // Ajusta la ruta si es necesario
+const polla_1 = require("../../schemas/polla"); // Ajusta la ruta si es necesario
 // Handler de ejemplo para el comando (útil para tu sistema de comando handler)
 const createPollaCommand = (interaction) => __awaiter(void 0, void 0, void 0, function* () {
     const nombre = interaction.options.getString('nombre', true);
