@@ -18,9 +18,16 @@ const discord_js_1 = require("discord.js");
 const commands_1 = __importDefault(require("./config/commands"));
 const interactionCreate_1 = require("./bot/events/interactionCreate");
 const generals_1 = require("./generals");
-const generals_2 = require("./generals");
 const rest = new discord_js_1.REST({ version: '10' }).setToken(process.env.TOKEN_DISCORD);
 exports.contextMap = new Map();
+const connections_1 = __importDefault(require("./database/connections"));
+(0, connections_1.default)()
+    .then(() => {
+    console.log("Intentando conectar a la base de datos al iniciar el bot...");
+})
+    .catch((err) => {
+    console.error("❌ Error al conectar a la base de datos:", err);
+});
 generals_1.BOT_CLIENT.once('ready', () => __awaiter(void 0, void 0, void 0, function* () {
     if (!generals_1.BOT_CLIENT.user)
         return;
@@ -33,14 +40,9 @@ generals_1.BOT_CLIENT.on('messageCreate', (message) => __awaiter(void 0, void 0,
     if (message.author.bot)
         return;
     const cleanedContext = (0, generals_1.generalprocessing)(message);
-    if (generals_1.BOT_CLIENT.user && message.mentions.has(generals_1.BOT_CLIENT.user.id)) {
-        const admin = yield (0, generals_2.checkadmin)(message);
-        if (admin) {
-            (0, generals_1.botresponds)(message, cleanedContext);
-        }
-        else {
-            yield message.reply("No eres admin provinciano");
-        }
+    const response = yield (0, generals_1.botResponse)(message, cleanedContext);
+    if (response != "chat") {
+        (0, interactionCreate_1.InteractionwithMessage)(message, response);
     }
 }));
 generals_1.BOT_CLIENT.login(process.env.TOKEN_DISCORD);

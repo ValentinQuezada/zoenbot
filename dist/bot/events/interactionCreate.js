@@ -22,19 +22,35 @@ const interactionCreateEvent = (interaction) => __awaiter(void 0, void 0, void 0
         case 'createMatch':
             yield (0, interaction_1.createMatchCommand)(commandInteraction);
             break;
+        case 'setGroupStageOnly':
+            yield (0, interaction_1.setGroupStageOnlyCommand)(commandInteraction);
+            break;
     }
 });
 exports.interactionCreateEvent = interactionCreateEvent;
-const InteractionwithMessage = (params) => __awaiter(void 0, void 0, void 0, function* () {
+const InteractionwithMessage = (message, params) => __awaiter(void 0, void 0, void 0, function* () {
     switch (params) {
         case "see_matches":
-            console.log("Comando 01");
+            yield interaction_1.seeMatches.seeMatches_simple({
+                userId: message.author.id,
+                replyFn: (content) => message.reply(content)
+            });
+            break;
         case "see-results":
-            console.log("Comando 02");
+            yield interaction_1.seeResultsCommand.seeResults_simple({
+                userId: message.author.id,
+                replyFn: (content) => message.reply(content)
+            });
+            break;
         case "see-my-aura":
-            console.log("Comando 03");
+            yield interaction_1.seeAuraCommand.seeAura_simple({
+                userId: message.author.id,
+                replyFn: (content) => message.reply(content)
+            });
+            break;
         default:
             console.log("Comand default");
+            break;
     }
 });
 exports.InteractionwithMessage = InteractionwithMessage;

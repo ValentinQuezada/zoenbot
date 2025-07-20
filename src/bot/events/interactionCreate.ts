@@ -3,12 +3,12 @@ import {
     sayCommand,
     createMatchCommand,
     setGroupStageOnlyCommand,
-    
+    createPollaCommand,
+    seeAuraCommand,
+    seeResultsCommand,
+    seeMatches,
+    sendScorePredictionCommand    
 } from "../interaction";
-
-import seeMatches from "../interaction/seeMatches"
-import seeResults from "../interaction/seeResults";
-import seeAura from "../interaction/seeAura"
 
 const interactionCreateEvent = async (interaction: Interaction) => {
     if (!interaction.isCommand()) return;
@@ -38,13 +38,13 @@ const InteractionwithMessage = async (message: Message, params:string) => {
       });
       break
     case "see-results":
-      await seeResults.seeResults_simple({
+      await seeResultsCommand.seeResults_simple({
         userId: message.author.id,
         replyFn: (content: string) => message.reply(content)
       });
       break
     case "see-my-aura":
-      await seeAura.seeAura_simple({
+      await seeAuraCommand.seeAura_simple({
         userId: message.author.id,
         replyFn: (content: string) => message.reply(content)
       });
