@@ -4,7 +4,7 @@ import { PredictionSchema } from "../../schemas/prediction";
 import { horaSimpleConHrs, diaSimple } from "../../utils/timestamp";
 import { getSupLabels } from "../../utils/sup";
 
-const seeMatches = async (interaction: CommandInteraction) => {
+const seeMatchesCommand = async (interaction: CommandInteraction) => {
   await interaction.deferReply({ ephemeral: true });
 
   const db = await databaseConnection();
@@ -80,4 +80,4 @@ const seeMatches_simple = async ({ userId, replyFn }: SeeMatchesParams) => {
   await replyFn(message);
 };
 
-export default {seeMatches, seeMatches_simple};
+export default {seeMatchesCommand, seeMatches_simple};

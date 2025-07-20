@@ -6,7 +6,7 @@ import {
     createPollaCommand,
     seeAuraCommand,
     seeResultsCommand,
-    seeMatches,
+    seeMatchesCommand,
     sendScorePredictionCommand    
 } from "../interaction";
 
@@ -22,8 +22,20 @@ const interactionCreateEvent = async (interaction: Interaction) => {
     case 'createMatch':
       await createMatchCommand(commandInteraction);
       break;
+    case 'createPolla':
+      await createPollaCommand(commandInteraction);
+      break;
     case 'setGroupStageOnly':
       await setGroupStageOnlyCommand(commandInteraction);
+      break;
+    case 'seeMatches':
+      await seeMatchesCommand(commandInteraction);
+      break;
+    case 'seeResults':
+      await seeResultsCommand(commandInteraction);
+      break;
+    case 'sendScorePrediction':
+      await sendScorePredictionCommand(commandInteraction);
       break;
   }
 }
@@ -32,7 +44,7 @@ const interactionCreateEvent = async (interaction: Interaction) => {
 const InteractionwithMessage = async (message: Message, params:string) => {
   switch (params){
     case "see_matches":
-      await seeMatches.seeMatches_simple({
+      await seeMatchesCommand.seeMatches_simple({
         userId: message.author.id,
         replyFn: (content: string) => message.reply(content)
       });
