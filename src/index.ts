@@ -1,7 +1,7 @@
 import 'dotenv/config'
 import { REST, Routes, Message } from 'discord.js'
 import commands from './config/commands'
-import interactionCreateEvent from './bot/events/interactionCreate';
+import {interactionCreateEvent, InteractionwithMessage} from './bot/events/interactionCreate';
 import { BOT_CLIENT, botResponse, generalprocessing} from './generals';
 import { checkRole } from './utils/checkRole';
 import { checkadmin } from './generals';
@@ -9,6 +9,16 @@ import { checkadmin } from './generals';
 const rest = new REST({ version: '10' }).setToken(process.env.TOKEN_DISCORD as string)
 
 export const contextMap = new Map<string, Message[]>();
+
+import databaseConnection from "./database/connections";
+
+databaseConnection()
+  .then(() => {
+    console.log("Intentando conectar a la base de datos al iniciar el bot...");
+  })
+  .catch((err) => {
+    console.error("❌ Error al conectar a la base de datos:", err);
+  });
 
 BOT_CLIENT.once('ready', async () => {
   if (!BOT_CLIENT.user) return

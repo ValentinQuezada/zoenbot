@@ -1,5 +1,5 @@
 import { ChatInputCommandInteraction } from "discord.js";
-import { Polla } from "../schemas/polla"; // Ajusta la ruta si es necesario
+import { Polla } from "../../schemas/polla"; // Ajusta la ruta si es necesario
 
 // Handler de ejemplo para el comando (útil para tu sistema de comando handler)
 export const createPollaCommand = async (interaction: ChatInputCommandInteraction) => {

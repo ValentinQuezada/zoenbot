@@ -16,6 +16,7 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const match_1 = require("../schemas/match");
 const prediction_1 = require("../schemas/prediction");
 const user_1 = require("../schemas/user");
+const polla_1 = require("../schemas/polla"); // <-- agrega tu schema de Polla
 let mongoClient;
 let mongoConnection;
 function databaseConnection() {
@@ -29,6 +30,7 @@ function databaseConnection() {
         mongoConnection.model('Match', match_1.MatchMongoose);
         mongoConnection.model('Prediction', prediction_1.PredictionSchema);
         mongoConnection.model('UserStats', user_1.UserStatsSchema);
+        mongoConnection.model('Polla', polla_1.PollaMongoose);
         mongoConnection.once("open", () => {
             console.log("Connected to MongoDB");
         });

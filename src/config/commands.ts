@@ -1,7 +1,12 @@
 import sayCommand from "../commands/say";
+import createMatch from "../commands/createMatch";
+import setGroupStageOnlyCommand from "../commands/setGroupStageOnly";
+import { set } from "mongoose";
 
 const commands = [
-  sayCommand
+  sayCommand,
+  createMatch,
+  setGroupStageOnlyCommand,
 ];
 
 export default commands;
